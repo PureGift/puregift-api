@@ -1,0 +1,8 @@
+.svn
+bin
+/work
+*.class
+.idea/
+target/
+*.iml
+*.classpath
