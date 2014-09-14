@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <bean id="baseDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass"><value>com.mysql.jdbc.Driver</value></property>
+        <!--连接池中保留的最小连接数-->
+        <property name="minPoolSize"><value>10</value></property>
+        <!--连接池中保留的最大连接数-->
+        <property name="maxPoolSize"><value>50</value></property>
+        <!--初始化连接池中的连接数-->
+        <property name="initialPoolSize" value="10"/>
+        <!--每60秒检查所有连接池中的空闲连接-->
+        <property name="idleConnectionTestPeriod"><value>60</value></property>
+        <!--最大空闲时间，120秒内未使用则连接被丢弃-->
+        <property name="maxIdleTime"><value>120</value></property>
+        <!--如果为false，则获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常，但是数据源仍有效保留，
+        并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试获取连接失败后该数据源
+        将申明已断开并永久关闭-->
+        <property name="breakAfterAcquireFailure"><value>false</value></property>
+        <!--当连接池连接耗尽时，客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，
+        如设为0则无限期等待。单位毫秒-->
+        <property name="checkoutTimeout"><value>3000</value></property>
+        <!--定义在从数据库获取新连接失败后重复尝试的次数。小于等于0表示无限次-->
+        <property name="acquireRetryAttempts"><value>50</value></property>
+        <!--重新尝试的时间间隔-->
+        <property name="acquireRetryDelay"><value>1000</value></property>
+    </bean>
+
+    <bean id="pureGiftDataSource" parent="baseDataSource">
+        <property name="jdbcUrl">
+            <value>jdbc:mysql://localhost:3306/?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;connectTimeout=1000&amp;socketTimeout=1000</value>
+        </property>
+        <property name="user">
+            <value>PureGift</value>
+        </property>
+        <property name="password">
+            <value>PureGift2014</value>
+        </property>
+    </bean>
+
+    <bean id="pureGiftJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name = "dataSource" ref="pureGiftDataSource"/>
+    </bean>
+</beans>
