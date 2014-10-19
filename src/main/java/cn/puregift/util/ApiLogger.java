@@ -26,41 +26,26 @@ public class ApiLogger {
         if (!(infoLog.isInfoEnabled()))
             return;
 
-        if(null != msg)
-            infoLog.info(msg.toString());
-        else
-            infoLog.info("null");
+        infoLog.info(msg);
     }
 
     public static void warn(Object msg)
     {
-        if(null != msg)
-            warnLog.warn(msg.toString());
-        else
-            warnLog.warn("null");
+        warnLog.warn(msg);
     }
 
     public static void warn(Object msg, Throwable e)
     {
-        if(null != msg)
-            warnLog.warn(msg.toString(), e);
-        else
-            warnLog.warn("null", e);
+        warnLog.warn(msg, e);
     }
 
     public static void error(Object msg)
     {
-        if(null != msg)
-            errorLog.error(msg.toString());
-        else
-            errorLog.error("null");
+        errorLog.error(msg);
     }
 
     public static void error(Object msg, Throwable e)
     {
-        if(null != msg)
-            errorLog.error(msg.toString(), e);
-        else
-            errorLog.error("null");
+        errorLog.error(msg, e);
     }
 }

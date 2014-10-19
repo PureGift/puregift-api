@@ -41,4 +41,83 @@
     <bean id="pureGiftJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name = "dataSource" ref="pureGiftDataSource"/>
     </bean>
+
+    <bean id="userInfoDBCluster" class="cn.puregift.dao.impl.DBCluster">
+        <property name="dbSplitStrategy">
+            <bean class="cn.puregift.dao.impl.HashDBSplitStrategy">
+                <property name="dbPrefix" value="user_info"></property>
+                <property name="tablePrefix" value="user_info"></property>
+                <property name="dbCount" value="1"></property>
+                <property name="tableCountPerDB" value="1"></property>
+            </bean>
+        </property>
+        <property name="jts">
+            <map>
+                <entry key="user_info" value-ref="pureGiftJdbcTemplate"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="giftInfoDBCluster" class="cn.puregift.dao.impl.DBCluster">
+        <property name="dbSplitStrategy">
+            <bean class="cn.puregift.dao.impl.DateDBSplitStrategy">
+                <property name="dbPrefix" value="gift_info"></property>
+                <property name="tablePrefix" value="gift_info"></property>
+                <property name="dbCount" value="1"></property>
+                <property name="tableCountPerDB" value="1"></property>
+            </bean>
+        </property>
+        <property name="jts">
+            <map>
+                <entry key="gift_info" value-ref="pureGiftJdbcTemplate"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="giftPictureDBCluster" class="cn.puregift.dao.impl.DBCluster">
+        <property name="dbSplitStrategy">
+            <bean class="cn.puregift.dao.impl.DateDBSplitStrategy">
+                <property name="dbPrefix" value="gift_picture"></property>
+                <property name="tablePrefix" value="gift_picture"></property>
+                <property name="dbCount" value="1"></property>
+                <property name="tableCountPerDB" value="1"></property>
+            </bean>
+        </property>
+        <property name="jts">
+            <map>
+                <entry key="gift_picture" value-ref="pureGiftJdbcTemplate"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="outerAccountDBCluster" class="cn.puregift.dao.impl.DBCluster">
+        <property name="dbSplitStrategy">
+            <bean class="cn.puregift.dao.impl.HashDBSplitStrategy">
+                <property name="dbPrefix" value="outer_account"></property>
+                <property name="tablePrefix" value="outer_account"></property>
+                <property name="dbCount" value="1"></property>
+                <property name="tableCountPerDB" value="1"></property>
+            </bean>
+        </property>
+        <property name="jts">
+            <map>
+                <entry key="outer_account" value-ref="pureGiftJdbcTemplate"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="pureGiftDao" class="cn.puregift.dao.impl.PureGiftDaoImpl">
+        <property name="dbClusters">
+            <map>
+                <entry key="user_info" value-ref="userInfoDBCluster"></entry>
+                <entry key="gift_info" value-ref="giftInfoDBCluster"></entry>
+                <entry key="gift_picture" value-ref="giftPictureDBCluster"></entry>
+                <entry key="outer_account" value-ref="outerAccountDBCluster"></entry>
+            </map>
+        </property>
+    </bean>
+
+
+
+
 </beans>

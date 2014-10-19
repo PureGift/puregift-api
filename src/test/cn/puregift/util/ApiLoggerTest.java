@@ -5,6 +5,7 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 /**
  * Created by elvin on 14-7-2.
  */
@@ -20,7 +21,7 @@ public class ApiLoggerTest {
 
     @Test
     public void test() {
-        ApiLogger.info("hello");
+        ApiLogger.info("info");
         ApiLogger.warn("warn");
         ApiLogger.error("error");
     }
